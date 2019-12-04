@@ -1,0 +1,229 @@
+
+--------------------
+JMeter Basic Structure
+--------------------
+Step 1: Create > Test Plan (Rename as per testing project)
+Step 2: Add > Threads > Thread Group
+Step 3: Add > Sampler > HTTP / FTP Request / etc.
+Step 4: Add > Listener > View Result Tree / View Results in Table / etc.
+Step 5: Fill up all required fields in each section as per testing need
+Step 6: Run and Validate
+-------------------------------------------------------------
+
+
+-----------------------------------------
+Run JMeter from Command Line (non GUI mode)
+-----------------------------------------
+Step 1: Open CMD from 'bin>jmeter' folder
+Step 2: jmeter -n -t (location of JMeter save script) -l (location of the result file)
+Step 3: Run and Validate
+
+For HTML Report,
+Step 1: Open CMD from 'JMeter>bin' folder
+Step 2: jmeter -n -t (location of JMeter save script) -l (location of the result file) -e -o (location of the output folder as HTML)
+Step 3: Run and Validate
+
+For creating 'HTML Report' from 'CSV File'
+Step 1: Open CMD from 'JMeter>bin' folder
+Step 2: jmeter -g (location of CSV File) -o (location of the output folder as HTML)
+Step 3: Run and Validate
+--------------------------------------------------------------------------------------------------------------
+
+
+-----------------------
+File Upload - JMeter (WEB)
+-----------------------
+Step 1: Add Web Address (www.tinyupload.com)
+Step 2: Select > POST 
+Step 3: Select > Use multipart/form Data
+Step 4: Add > File
+Step 5: Get 'Parameter Name' from Site > 'Upload_Button'
+Step 6: Get MIME type from ''https://www.freeformatter.com/mime-types-list.html'' as per file type
+Step 7: Run and Validate
+--------------------------------------------------------------------------------------
+
+
+-------------------------
+File Download - JMeter (WEB)
+-------------------------
+Step 1: Add Web Address (speedtest.tele2.net)
+Step 2: Select > GET
+Step 3: Add > Listener > Save Response to a file
+Step 4: Select > Destination path
+Step 5: Use > ${__threadNum} in path for avoiding override and check 'Don't add number to prefix'
+Step 6: Run and Validate
+-------------------------------------------------
+
+
+-----------------------
+File Upload - JMeter (FTP)
+-----------------------
+Step 1: Select FTP Http Request
+Step 2: Add Web Address (ftp.dlptest.com), Username (dlpuser@dlptest.com), Pass (5p2tvn92R0di8FdiLCfzeeT0b)
+Step 3: Choose > put(STOR)
+Step 4: Open FileZilla and Login to FTP server with the same credentials
+Step 5: Choose Location in FTP server to PUT file and set in 'Remote' box (JMeter)
+Step 6: Get file location from Local PC and set in 'Local File' box (JMeter)
+Step 7: Run and Validate
+
+To Avoid Override for Multiple Files,
+#1: Follow Step (1-6) > Choose > Config Element > CSV Data Set Config
+#2: Create a New CSV file
+#3: Add data to CSV file
+#4: Provide Location path in 'CSV Data Set Config'
+#5: Use parameter #{Name} in 'Remote' box (JMeter)
+#6: Run and Validate
+-----------------------------------------------------------------------------------------------
+
+
+------------------------
+File Download - JMeter (FTP)
+------------------------
+Step 1: Select FTP Request
+Step 2: Add Web Address (ftp.dlptest.com), Username (dlpuser@dlptest.com), Pass (5p2tvn92R0di8FdiLCfzeeT0b)
+Step 3: Choose > get(RETR)
+Step 4: Open FileZilla and Login to FTP server with the same credentials
+Step 5: Get file location from FileZilla and put in 'Remote' box (JMeter)
+Step 6: Set Local Download Location in 'Local File' box (JMeter)
+Step 7: Run and Validate
+-----------------------------------------------------------------------------------------------
+
+
+------------------------
+File Download - JMeter (SFTP)
+------------------------
+Step 1: Select SSH SFTP
+Step 2: Add Web Address (sftp server address), Username (sftp server username), Pass (sftp server pass), Port (22)
+Step 3: Choose > get
+Step 4: Choose > Print file content > False
+Step 5: Open FileZilla and Login to SFTP server with the same credentials
+Step 6: Get file location from FileZilla and put in 'Source path' box (JMeter)
+Step 7: Set Local Download Location in 'Destination path' box (JMeter)
+Step 8: Run and Validate
+-----------------------------------------------------------------------------------------------
+
+
+-----------------------
+File Upload - JMeter (SFTP)
+-----------------------
+Step 1: Select SSH SFTP
+Step 2: Add Web Address (sftp server address), Username (sftp server username), Pass (sftp server pass), Port (22)
+Step 3: Choose > put
+Step 4: Choose > Print file content > False
+Step 5: Open FileZilla and Login to SFTP server with the same credentials
+Step 6: Get file location from Local PC and set in 'Destination path' box (JMeter)
+Step 7: Choose Location in SFTP server to PUT file and set in 'Source path' box (JMeter) 
+Step 8: Run and Validate
+
+To Avoid Override for Multiple Files,
+#1: Follow Step (1-7) > Choose > Config Element > CSV Data Set Config
+#2: Create a New CSV file
+#3: Add data to CSV file
+#4: Provide Location path in 'CSV Data Set Config'
+#5: Use parameter #{Name} in 'Destination path' box (JMeter)
+#6: Run and Validate
+-----------------------------------------------------------------------------------------------
+
+
+-----------------------------
+API Testing - WebService > REST
+-----------------------------
+Step 1: Add > Http Request
+Step 2: Add > IP (api.openweathermap.org), Path (/data/2.5/weather), Method (GET)
+Step 3: Add > Paramenters > (q=Dhaka), (appid=5ad76b332e2fa27ea9859353e5fdd69d)
+Step 4: Add > Listeners > View Results Tree 
+Step 5: Run and Validate
+------------------------------------------------------------------------
+
+
+-----------------------------
+API Testing - WebService > SOAP
+-----------------------------
+Step 1: Add > Http Request
+Step 2: Add > IP (www.dneonline.com), Path (/calculator.asmx), Method (POST)
+Step 3: Add > Body Data >  
+			<?xml version="1.0" encoding="utf-8"?>
+			<soap:Envelope
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+			<soap:Body>
+			<Add
+			xmlns="http://tempuri.org/">
+			<intA>25</intA>
+			<intB>15</intB>
+			</Add>
+			</soap:Body>
+			</soap:Envelope>
+
+Step 4: Add > Config Element > Http Header Manager
+Step 5: Add > Headers > Name (Content-Type), Value (text/xml; charset=utf-8)
+Step 6: Add > Listeners > View Results Tree 
+Step 7: Run and Validate
+-------------------------------------------------------------------
+
+
+---------------------------------------------
+Pacing - Controlled ramp-up and down of virtual users
+       - Control timing between iterations
+       - Achieve x iterations in y mins/sec
+---------------------------------------------
+Step 1: Add > Thread Group (jp@gc - Stepping Thread Group)
+Step 2: Add > Sampler (HTTP Request)
+Step 3: Add > Listener (View Rest Tree)
+Step 4: Fill up 'HTTP Request fields'
+Step 5: Fill up the fields in 'jp@gc - Stepping Thread Group'
+Step 6: Run and Validate
+-----------------------------------------------------
+
+
+---------------------------------------------------
+Think Time - Simulate actual user actions with timings/delays
+---------------------------------------------------
+Step 1: Add & Fill up > 'Basic Structure'
+Step 2: Add Timer > 'Constant Timer' or 'Uniform Random Timer' in Sampler
+Step 3: Fill up 'Constant Timer Field'
+Step 4: Run and Validate
+-----------------------------------------------------------------
+
+
+---------------------------
+Run a Test for Specific Duration
+---------------------------
+Step 1: Add & Fill up > 'Basic Structure'
+Step 2: Check 'Loop Count'
+Step 3: Check 'Scheduler'
+Step 4: Put > 'Timer Duration'
+Step 5: Run and Validate
+-----------------------------------
+
+
+---------------------------------
+Run Multiple Thread Groups Sequentially
+---------------------------------
+Step 1: Add & Fill up > 'Basic Structure' for 'Thread Group 1'
+Step 2: Check 'Loop Count'
+Step 3: Check 'Scheduler'
+Step 4: Put > 'Timer Duration'
+Step 5: Add & Fill up > 'Basic Structure' for 'Thread Group 2'
+Step 6: Go to 'Test Plan' and check > 'Run Thread Groups Consecutively'
+Step 7: Run and Validate
+-------------------------------------------------------------
+
+
+----------------------------
+Monitor Server Health - PerfMon
+----------------------------
+Check this Clicp,
+https://www.youtube.com/watch?v=xG3mVsXzCCo&list=PLhW3qG5bs-L-zox1h3eIL7CZh5zJmci4c&index
+------------------------------------------------------------------------------------
+
+
+------------------------
+JMete - Desktop Application
+------------------------
+
+
+
+
+
